@@ -1,5 +1,5 @@
 export function configureFakeBackend() {
-    let users = [{ id: 1, username: 'billy+testing@notarealemail.com', password: 'UKi6y0OEwcWKII2R' }];
+    let users = [{ id: 1, email: 'billy+testing@notarealemail.com', password: 'UKi6y0OEwcWKII2R' }];
     let userInfo =
     {
         "firstName": "Billy",
@@ -16,7 +16,7 @@ export function configureFakeBackend() {
         "siteName": "Vet Tix"
     };
     let eventList = {
-        "events": [{
+        "eventItems": [{
             "id": 245916,
             "title": "Hollywood Casino 400",
             "startDate": "2020-10-08",
@@ -138,108 +138,107 @@ export function configureFakeBackend() {
             setTimeout(() => {
 
                 // authenticate
-                //if (url.pathname.endsWith('/user/login') && opts.method === 'POST') {
-                //    // get parameters from post request
-                //    let params = JSON.parse(opts.body);
+                if (url.pathname.endsWith('/user/login') && opts.method === 'POST') {
+                    // get parameters from post request
+                    let params = JSON.parse(opts.body);
 
-                //    // find if any user matches login credentials
-                //    let filteredUsers = users.filter(user => {
-                //        return user.username === params.username && user.password === params.password;
-                //    });
+                    // find if any user matches login credentials
+                    let filteredUsers = users.filter(user => {
+                        return user.email === params.email && user.password === params.password;
+                    });
 
-                //    if (filteredUsers.length) {
-                //        // if login details are valid return fake jwt token
-                //        let user = filteredUsers[0];
-                //        let responseJson = {
-                //            token: 'fake-base64-encoded-jwt-token'
-                //        };
-                //        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(responseJson)) });
-                //    } else {
-                //        // else return error
-                //        reject('Username or password is incorrect');
-                //    }
+                    if (filteredUsers.length) {
+                        // if login details are valid return fake jwt token
+                        let responseJson = {
+                            token: 'fake-base64-encoded-jwt-token'
+                        };
+                        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(responseJson)) });
+                    } else {
+                        // else return error
+                        reject('Email or password is incorrect');
+                    }
 
-                //    return;
-                //}
+                    return;
+                }
 
                 // get user
-                //if (url.pathname.endsWith('/user/info') && opts.method === 'GET') {
-                //    // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
-                //    if (opts.headers && opts.headers.Authorization === 'Bearer fake-base64-encoded-jwt-token') {
-                //        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(userInfo)) });
-                //    } else {
-                //        // return 401 not authorized if token is null or invalid
-                //        reject('Unauthorized');
-                //    }
+                if (url.pathname.endsWith('/user/info') && opts.method === 'GET') {
+                    // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
+                    if (opts.headers && opts.headers.Authorization === 'Bearer fake-base64-encoded-jwt-token') {
+                        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(userInfo)) });
+                    } else {
+                        // return 401 not authorized if token is null or invalid
+                        reject('Unauthorized');
+                    }
 
-                //    return;
-                //}
+                    return;
+                }
 
-                //// get event list
-                //if (url.pathname.endsWith('/event') && opts.method === 'GET') {
-                //    // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
-                //    if (opts.headers && opts.headers.Authorization === 'Bearer fake-base64-encoded-jwt-token') {
-                //        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(eventList)) });
-                //    } else {
-                //        // return 401 not authorized if token is null or invalid
-                //        reject('Unauthorized');
-                //    }
+                // get event list
+                if (url.pathname.endsWith('/event') && opts.method === 'GET') {
+                    // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
+                    if (opts.headers && opts.headers.Authorization === 'Bearer fake-base64-encoded-jwt-token') {
+                        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(eventList)) });
+                    } else {
+                        // return 401 not authorized if token is null or invalid
+                        reject('Unauthorized');
+                    }
 
-                //    return;
-                //}
+                    return;
+                }
 
 
-                //// get states list
-                //if (url.pathname.endsWith('/state') && opts.method === 'GET') {
-                //    // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
-                //    if (opts.headers && opts.headers.Authorization === 'Bearer fake-base64-encoded-jwt-token') {
-                //        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(statesList)) });
-                //    } else {
-                //        // return 401 not authorized if token is null or invalid
-                //        reject('Unauthorized');
-                //    }
+                // get states list
+                if (url.pathname.endsWith('/state') && opts.method === 'GET') {
+                    // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
+                    if (opts.headers && opts.headers.Authorization === 'Bearer fake-base64-encoded-jwt-token') {
+                        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(statesList)) });
+                    } else {
+                        // return 401 not authorized if token is null or invalid
+                        reject('Unauthorized');
+                    }
 
-                //    return;
-                //}
+                    return;
+                }
 
-                //// get event type list
-                //if (url.pathname.endsWith('/event/type') && opts.method === 'GET') {
-                //    // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
-                //    if (opts.headers && opts.headers.Authorization === 'Bearer fake-base64-encoded-jwt-token') {
-                //        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(eventTypes)) });
-                //    } else {
-                //        // return 401 not authorized if token is null or invalid
-                //        reject('Unauthorized');
-                //    }
+                // get event type list
+                if (url.pathname.endsWith('/event/type') && opts.method === 'GET') {
+                    // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
+                    if (opts.headers && opts.headers.Authorization === 'Bearer fake-base64-encoded-jwt-token') {
+                        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(eventTypes)) });
+                    } else {
+                        // return 401 not authorized if token is null or invalid
+                        reject('Unauthorized');
+                    }
 
-                //    return;
-                //}
+                    return;
+                }
 
-                //// get event details
-                //if (url.pathname.startsWith('/event') && opts.method === 'GET') {
-                //    // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
-                //    if (opts.headers && opts.headers.Authorization === 'Bearer fake-base64-encoded-jwt-token') {
-                //        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(eventDetails)) });
-                //    } else {
-                //        // return 401 not authorized if token is null or invalid
-                //        reject('Unauthorized');
-                //    }
+                // get event details
+                if (url.pathname.startsWith('/event') && opts.method === 'GET') {
+                    // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
+                    if (opts.headers && opts.headers.Authorization === 'Bearer fake-base64-encoded-jwt-token') {
+                        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(eventDetails)) });
+                    } else {
+                        // return 401 not authorized if token is null or invalid
+                        reject('Unauthorized');
+                    }
 
-                //    return;
-                //}
+                    return;
+                }
 
-                //// get inventory for an event
-                //if (url.pathname.startsWith('/inventory') && opts.method === 'GET') {
-                //    // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
-                //    if (opts.headers && opts.headers.Authorization === 'Bearer fake-base64-encoded-jwt-token') {
-                //        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(inventory)) });
-                //    } else {
-                //        // return 401 not authorized if token is null or invalid
-                //        reject('Unauthorized');
-                //    }
+                // get inventory for an event
+                if (url.pathname.startsWith('/inventory') && opts.method === 'GET') {
+                    // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
+                    if (opts.headers && opts.headers.Authorization === 'Bearer fake-base64-encoded-jwt-token') {
+                        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(inventory)) });
+                    } else {
+                        // return 401 not authorized if token is null or invalid
+                        reject('Unauthorized');
+                    }
 
-                //    return;
-                //}
+                    return;
+                }
                 // pass through any requests not handled above
                 realFetch(url, opts).then(response => resolve(response));
 

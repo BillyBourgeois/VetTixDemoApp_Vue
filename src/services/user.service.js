@@ -1,4 +1,4 @@
-import { authHeader } from '../helpers';
+import { authHeader } from '@/helpers';
 let BaseUrl = 'https://www.vettix.org/uapi';
 
 export const userService = {
@@ -11,7 +11,7 @@ function login(email, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ value: { email, password } } )
+        body: JSON.stringify({ email, password } )
     };
     let url = new URL(BaseUrl + '/user/login');
     return fetch(url, requestOptions)
@@ -47,8 +47,8 @@ function handleResponse(response) {
         if (!response.ok) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
-                //logout();
-                //location.reload(true);
+                logout();
+                location.reload(true);
             }
             const error = (data && data.message) || response.statusText;
             return Promise.reject(error);

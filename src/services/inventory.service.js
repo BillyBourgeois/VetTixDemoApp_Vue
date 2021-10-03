@@ -45,11 +45,14 @@ function getAdjacentSeats(eventId, numberOfSeats) {
             var rowsOfSeats = groupBy2Keys(inventory, 'section', 'row')
 
             //group seats by seat numbers that are adjacent
-            // rowsOfSeats.forEach((element, index, array) => {
             for (const row in rowsOfSeats) {
+                //sort seats in ascending order
                 const arrayOfSeats = (rowsOfSeats[row]).sort((a, b) => (a.seat > b.seat) ? 1 : -1);
+
+                //check to see if there are enough seats in this row
                 if (arrayOfSeats.length >= numberOfSeats) {
-                    //check if seats are adjacent
+
+
                     var adjacentSeats = [];
                     //always put the first item as the first adjacent seat
                     adjacentSeats.push(arrayOfSeats[0]);
@@ -57,7 +60,7 @@ function getAdjacentSeats(eventId, numberOfSeats) {
                     for (var i = 1; i < arrayOfSeats.length; i++) {
 
                         // if current seat is 1 more than the last one in the array of adjacentSeats
-                        if (parseInt(arrayOfSeats[i].seat) == parseInt(adjacentSeats[adjacentSeats.length - 1].seat) + 1) {
+                        if (parseInt(arrayOfSeats[i].seat) === parseInt(adjacentSeats[adjacentSeats.length - 1].seat) + 1) {
 
                             //store the inventory item
                             adjacentSeats.push(arrayOfSeats[i]);

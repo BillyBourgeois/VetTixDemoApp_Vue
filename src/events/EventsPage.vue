@@ -65,7 +65,7 @@
                             <div class="form-group col-sm-5">
                                 <div class="form-group">
                                     <button class="btn btn-primary" :disabled="searchingEvents">Submit</button>
-                                    <img v-show="searchingEvents" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                    <img alt v-show="searchingEvents" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 
                                 </div>
                             </div>
@@ -111,7 +111,8 @@
                                     <td width="150" class="align-middle">
                                         <img width="200" class="card-img-top" v-bind:src="event.imageURL" v-bind:alt="event.title">
                                     </td>
-                                    <td class="align-middle">{{event.title}}</td>
+                                    <td class="align-middle">{{decode(event.title)}}<br/>{{event.title}}</td>
+
                                     <td class="align-middle">{{formatDateTime(event.startDate, event.startTime)}}</td>
                                     <td class="align-middle">{{formatDateTime(event.endDate, event.endTime)}}</td>
                                     <td class="align-middle">{{event.city}}, {{event.stateCode}}</td>
@@ -154,7 +155,7 @@
                         <ul class="pagination">
                             <li class="page-item" :disabled="previousDisabled"><button v-on:click="handlePrevious" type="button" class="page-link" :disabled="previousDisabled">Previous</button></li>
 
-                            <li class="page-item"><button v-on:click="handleNext" type="button" class="page-link" :disabled="nextDisabled" href="#">Next</button></li>
+                            <li class="page-item"><button v-on:click="handleNext" type="button" class="page-link" :disabled="nextDisabled" >Next</button></li>
                         </ul>
                     </nav>
                 </div>
@@ -229,7 +230,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <span v-show="inventory.length == 0" class="alert alert-info">
+                            <span v-show="inventory.length === 0" class="alert alert-info">
                                 sorry none found
                             </span>
                         </div>
@@ -247,8 +248,7 @@
 </template>
 
 <script>
-    import { eventsService } from '../services';
-    import { inventoryService } from '../services';
+    import { eventsService, inventoryService } from '../services';
     import { format } from '../helpers';
     export default {
         data() {
@@ -280,7 +280,7 @@
                 return this.$store.state.events.status.found;
             },
             events() {
-                return this.$store.state.events.eventsObject.events;
+                return this.$store.state.events.eventsObject.eventItems;
             },
             eventsObject() {
                 return this.$store.state.events.eventsObject;
@@ -340,18 +340,12 @@
                 this.handleSubmit(e);
             },
             handleDisablingPagation() {
-                if (this.start > this.eventsObject.eventsMeta.totalRecords - 10) {
-                    this.nextDisabled = true;
-                }
-                else {
-                    this.nextDisabled = false;
-                }
-                if (this.start < 10) {
-                    this.previousDisabled = true;
-                }
-                else {
-                    this.previousDisabled = false;
-                }
+                this.nextDisabled = this.start > this.eventsObject.eventsMeta.totalRecords - 10;
+                this.previousDisabled = this.start < 10;
+            },
+            decode(encodedString)
+            {
+              return he.decode(encodedString);
             }
         }
     };
