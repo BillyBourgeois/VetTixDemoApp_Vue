@@ -111,7 +111,7 @@
                                     <td width="150" class="align-middle">
                                         <img width="200" class="card-img-top" v-bind:src="event.imageURL" v-bind:alt="event.title">
                                     </td>
-                                    <td class="align-middle">{{decode(event.title)}}<br/>{{event.title}}</td>
+                                    <td class="align-middle">{{event.title}}<br/>{{event.title}}</td>
 
                                     <td class="align-middle">{{formatDateTime(event.startDate, event.startTime)}}</td>
                                     <td class="align-middle">{{formatDateTime(event.endDate, event.endTime)}}</td>
@@ -294,7 +294,6 @@
             eventsService.getEventTypes().then(eventTypes => {
                 this.eventTypes = eventTypes;
             });
-            this.handleSubmit();
         },
         watch: {
         },
@@ -342,10 +341,6 @@
             handleDisablingPagation() {
                 this.nextDisabled = this.start > this.eventsObject.eventsMeta.totalRecords - 10;
                 this.previousDisabled = this.start < 10;
-            },
-            decode(encodedString)
-            {
-              return he.decode(encodedString);
             }
         }
     };
